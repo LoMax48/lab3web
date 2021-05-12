@@ -15,10 +15,23 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{ path('about')}}">
+                <a class="navbar-brand" href="{{ path('about') }}">
                     <img src="../img/logo.png" width="30px" height="30px">
                     LiveBlog
                 </a>
+                {% if app.user %}
+                    <form action="{{ path('app_logout') }}">
+                        <button class="btn btn-outline-danger me-2" type="submit">Выход</button>
+                    </form>
+                    {{ app.user.username }}
+                {% else %}
+                    <form action="{{ path('app_login') }}">
+                        <button class="btn btn-outline-success me-2" type="submit">Вход</button>
+                    </form>
+                    <form action="{{ path('app_register') }}">
+                        <button class="btn btn-outline-secondary me-2" type="submit">Регистрация</button>
+                    </form>
+                {% endif %}
             </div>
         </nav>
         {% block body %}
