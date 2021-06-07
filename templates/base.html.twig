@@ -15,11 +15,25 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{ path('about') }}">
+                <a class="navbar-brand" href="{{ path('post_index') }}">
                     <img src="../img/logo.png" width="30px" height="30px">
                     LiveBlog
                 </a>
-                {% if app.user %}
+                <form action="{{ path('about') }}">
+                    <button class="btn btn-light me-2" type="submit">О проекте</button>
+                </form>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <form action="{{ path('admin') }}">
+                        <button class="btn btn-outline-info me-2" type="submit">Админ-панель</button>
+                    </form>
+                    <form action="{{ path('app_logout') }}">
+                        <button class="btn btn-outline-danger me-2" type="submit">Выход</button>
+                    </form>
+                    {{ app.user.username }}
+                {% elseif is_granted('ROLE_USER') %}
+                    <form action="{{ path('post_new') }}">
+                        <button class="btn btn-outline-info me-2" type="submit">Добавить запись</button>
+                    </form>
                     <form action="{{ path('app_logout') }}">
                         <button class="btn btn-outline-danger me-2" type="submit">Выход</button>
                     </form>
